@@ -1,32 +1,5 @@
 <?php 
 
-/**
- * Implements hook_menu().
- */
-function campus_location_menu() {
-	$items = array();
-	
-	$items['admin/config/penzias_tools'] = array(
-			'title' => 'Penzias Tools',
-			'description' => 'Settings for Penzias Tools modules.',
-			'position' => 'left',
-			'weight' => -40,
-			'page callback' => 'system_admin_menu_block_page',
-			'access arguments' => array('access administration pages'),
-			'file' => 'system.admin.inc',
-	);
-	
-	$items['admin/config/penzias_tools/campus_location_config'] = array(
-			'title' => 'Campus Location Configuration',
-			'description' => 'Change settings for Campus Locations.',
-			'page callback' => 'drupal_get_form',
-			'page arguments' => array('campus_location_config'),
-			'access arguments' => array('administer site configuration'),
-			'type' => MENU_NORMAL_ITEM,
-	);
-	
-	return $items;
-}
 
 function campus_location_config($form,&$form_state) {
 
@@ -81,7 +54,7 @@ function campus_location_block_view($delta = '') {
 
 function _campus_location_map() {
 	  
-  $api_key =  variable_get('campus_location_api_key','');
+  $api_key =  variable_get('geolocation_googlemaps_api_key','');
   $output = theme('campus_location_map',array('api_key' => $api_key));
   return $output;
 }

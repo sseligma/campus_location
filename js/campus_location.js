@@ -7,7 +7,7 @@
       function initMap() {
         	
         $.getJSON( "/campus-locations-data", function( data ) {
-          console.log(data);
+          //console.log(data);
           var mapOptions = {
             zoom: 17,
         	center: new google.maps.LatLng(0, 0),
