@@ -1,0 +1,110 @@
+<?php 
+
+/**
+ * Implements hook_menu().
+ */
+function campus_location_menu() {
+	$items = array();
+	
+	$items['admin/config/penzias_tools'] = array(
+			'title' => 'Penzias Tools',
+			'description' => 'Settings for Penzias Tools modules.',
+			'position' => 'left',
+			'weight' => -40,
+			'page callback' => 'system_admin_menu_block_page',
+			'access arguments' => array('access administration pages'),
+			'file' => 'system.admin.inc',
+	);
+	
+	$items['admin/config/penzias_tools/campus_location_config'] = array(
+			'title' => 'Campus Location Configuration',
+			'description' => 'Change settings for Campus Locations.',
+			'page callback' => 'drupal_get_form',
+			'page arguments' => array('campus_location_config'),
+			'access arguments' => array('administer site configuration'),
+			'type' => MENU_NORMAL_ITEM,
+	);
+	
+	return $items;
+}
+
+function campus_location_config($form,&$form_state) {
+
+	$form = array();
+	$form['campus_location_api_key'] = array(
+	  '#title' => 'Google Maps API Key',
+	  '#name' => 'campus_location_api_key',
+	  '#type' => 'textfield',
+	  '#default_value' => variable_get('campus_location_api_key','')
+	);
+	
+	$form = system_settings_form($form);
+	
+	return $form;
+		
+}
+
+
+/**
+ * Implements hook_block_info().
+ */
+function campus_location_block_info() {
+	$blocks = array();
+	$blocks['campus_location_map'] = array(
+	  'info' => t('Campus Locations Map Block'),
+	);
+	return $blocks;
+}
+/**
+ * Implements hook_block_view().
+ */
+function campus_location_block_view($delta = '') {
+  $block = array();
+  switch ($delta) {
+	case 'campus_location_map':
+	  $block['subject'] = '';
+	  $block['content'] = array(
+	    '#markup' => _campus_location_map(),
+	  	'#attached' => array(
+	  	  'css' => array(
+	  	    drupal_get_path('module', 'campus_location') . '/css/campus_location.css',
+	  	  ),
+	  	  'js' => array(
+	  	    drupal_get_path('module', 'campus_location') . '/js/campus_location.js',
+	  	  ),
+	    ),
+	  );
+	break;
+  }
+  return $block;
+}
+
+function _campus_location_map() {
+	  
+  $api_key =  variable_get('campus_location_api_key','');
+  $output = theme('campus_location_map',array('api_key' => $api_key));
+  return $output;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function campus_location_theme() {
+	
+  // Build our theme registry.
+  $registry = array();
+	
+  // Declare the location of our theme templates.
+  $theme_dir = drupal_get_path('module', 'campus_location') . '/theme';
+	
+  // Theme buttons.
+  $registry['campus_location_map'] = array(
+  'variables' => array('data' => NULL),
+    'template' => 'campus-location-map',
+    'path' => $theme_dir,
+  );
+  
+  return $registry;
+	
+}
+

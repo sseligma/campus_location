@@ -1,0 +1,15 @@
+name = Campus Location
+package = Penzias Tools
+description = Used to display custom Google maps for campus location nodes
+core = 7.x
+
+dependencies[] = views
+dependencies[] = views_json
+dependencies[] = geolocation
+dependencies[] = campus_location_feature
+
+
+
+stylesheets[all][] = css/campus_location.css
+
+scripts[] = js/campus_location.js

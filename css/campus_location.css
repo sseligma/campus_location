@@ -1,0 +1,63 @@
+#campus-locations-map-container {
+  height:740px;
+  width:930px;
+  position:relative;
+}
+
+#campus-locations-map {
+  height:740px;
+  width:930px;
+}
+
+
+#campus-location-info {
+	height:620px;
+	width:430px;
+	background:rgba(0,0,0,0.7);
+	display:none;
+	position:absolute;
+	bottom:0px;
+	left:500px;
+	font-family:arial;
+	color:#fff;
+}
+
+#campus-location-info h1 {
+  color:#ffc72c;
+  font-size:22px;
+  font-weight:bold;	
+  margin-top:0px;
+}
+
+#campus-location-info .info-container {
+	padding:30px 30px;
+}
+
+#campus-location-info .image-container {
+	width:430px;
+}
+
+#campus-location-info .image-container img {
+	width:430px;
+	height:286px;
+}
+
+#campus-location-info a.close-location-info {
+	position:absolute;
+	right:0px;	
+	font-size:18px;
+	font-weight:bold;
+	color:#fff;
+	padding:10px 10px;
+	background:rgba(0,0,0,0.5);
+} 
+
+#campus-location-info .address {
+  font-size:14px;
+  font-weight:bold;
+  text-transform:uppercase;
+  margin-top:32px;
+}
+
+
+
